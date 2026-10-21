@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CampusPesa MVP</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              400: '#4ade80',
+              500: '#22c55e',
+              600: '#16a34a',
+              700: '#15803d'
+            },
+            darkBg: '#0b0f19',
+            cardBorder: '#1e293b'
+          }
+        }
+      }
+    }
+  </script>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+
+  <style>
+    body { font-family: 'Plus Jakarta Sans', sans-serif; }
+
+    .glass-card {
+      background: rgba(18, 24, 36, 0.8);
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .ring-chart {
+      background: conic-gradient(#22c55e 0deg 230deg, #1e293b 230deg 360deg);
+    }
+  </style>
+</head>
+
+<body class="bg-darkBg text-gray-100 min-h-screen flex justify-center">
+
+  <!-- PHONE APP CONTAINER -->
+  <div class="w-full max-w-md min-h-screen relative pb-24">
+
+    <!-- HEADER -->
+    <header class="sticky top-0 z-40 glass-card border-b border-cardBorder px-5 py-4 flex items-center justify-between">
+      <div class="flex items-center space-x-3">
+        <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-brand-600 to-emerald-400 flex items-center justify-center">
+          <i class="fa-solid fa-graduation-cap text-white text-sm"></i>
+        </div>
+        <div>
+          <h1 class="font-extrabold text-sm">CampusPesa</h1>
+          <p class="text-[10px] text-gray-400">Hey Shafic 👋</p>
+        </div>
+      </div>
+
+      <button class="w-9 h-9 rounded-xl bg-gray-900/70 border border-cardBorder flex items-center justify-center text-gray-300">
+        <i class="fa-solid fa-bell text-xs"></i>
+      </button>
+    </header>
+
+    <main class="p-5 space-y-5">
+        <!-- STUDENT HERO IMAGE -->
+    <section class="relative rounded-3xl overflow-hidden">
+    <img
+        src="images/campus-student.jpg"
+        alt="University student using CampusPesa"
+        class="w-full h-44 object-cover"
+    />
+
+    <div class="absolute inset-0 bg-gradient-to-t from-darkBg via-darkBg/40 to-transparent"></div>
+
+    <div class="absolute bottom-4 left-4">
+        <h2 class="text-lg font-extrabold">
+        Control your campus spending
+        </h2>
+        <p class="text-[11px] text-gray-300">
+        Track meals, transport, data, and Supper Squads.
+        </p>
+    </div>
+    </section>
+
+      <!-- BUDGET HERO -->
+      <section class="glass-card rounded-3xl p-5 relative overflow-hidden">
+        <div class="absolute -right-10 -top-10 w-40 h-40 bg-brand-500/20 rounded-full blur-3xl"></div>
+
+        <div class="flex items-center justify-between">
+          <div>
+            <p class="text-[10px] uppercase tracking-wider text-gray-400 font-bold">
+              Today’s Budget
+            </p>
+            <h2 class="text-3xl font-extrabold text-brand-400 mt-1">
+              UGX 2,500
+            </h2>
+            <p class="text-[11px] text-gray-400">remaining today</p>
+          </div>
+
+          <!-- Budget ring -->
+          <div class="relative w-20 h-20">
+            <div class="ring-chart w-20 h-20 rounded-full"></div>
+            <div class="absolute inset-2 bg-darkBg rounded-full flex flex-col items-center justify-center">
+              <span class="text-sm font-extrabold">64%</span>
+              <span class="text-[9px] text-gray-400">used</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-3 mt-5">
+          <div class="p-3 rounded-2xl bg-gray-900/70 border border-cardBorder">
+            <p class="text-[10px] text-gray-400">Budget</p>
+            <h3 class="text-sm font-extrabold mt-1">UGX 7,000</h3>
+          </div>
+
+          <div class="p-3 rounded-2xl bg-gray-900/70 border border-cardBorder">
+            <p class="text-[10px] text-gray-400">Spent</p>
+            <h3 class="text-sm font-extrabold mt-1 text-rose-400">UGX 4,500</h3>
+          </div>
+        </div>
+      </section>
+
+      <!-- QUICK ACTIONS -->
+      <section class="grid grid-cols-4 gap-3">
+        <button onclick="openModal('addExpenseModal')"
+          class="p-3 rounded-2xl bg-gray-900/70 border border-cardBorder hover:border-brand-500/50 flex flex-col items-center space-y-2 transition">
+          <div class="w-9 h-9 rounded-xl bg-brand-500/20 text-brand-400 flex items-center justify-center">
+            <i class="fa-solid fa-plus text-xs"></i>
+          </div>
+          <span class="text-[10px] font-bold text-gray-300">Add</span>
+        </button>
+
+        <button onclick="openModal('createSquadModal')"
+          class="p-3 rounded-2xl bg-gray-900/70 border border-cardBorder hover:border-blue-500/50 flex flex-col items-center space-y-2 transition">
+          <div class="w-9 h-9 rounded-xl bg-blue-500/20 text-blue-400 flex items-center justify-center">
+            <i class="fa-solid fa-users text-xs"></i>
+          </div>
+          <span class="text-[10px] font-bold text-gray-300">Squad</span>
+        </button>
+
+        <button onclick="openModal('joinSquadModal')"
+          class="p-3 rounded-2xl bg-gray-900/70 border border-cardBorder hover:border-purple-500/50 flex flex-col items-center space-y-2 transition">
+          <div class="w-9 h-9 rounded-xl bg-purple-500/20 text-purple-400 flex items-center justify-center">
+            <i class="fa-solid fa-user-plus text-xs"></i>
+          </div>
+          <span class="text-[10px] font-bold text-gray-300">Join</span>
+        </button>
+
+        <button class="p-3 rounded-2xl bg-gray-900/70 border border-cardBorder hover:border-amber-500/50 flex flex-col items-center space-y-2 transition">
+          <div class="w-9 h-9 rounded-xl bg-amber-500/20 text-amber-400 flex items-center justify-center">
+            <i class="fa-solid fa-clock-rotate-left text-xs"></i>
+          </div>
+          <span class="text-[10px] font-bold text-gray-300">History</span>
+        </button>
+      </section>
+
+      <!-- SUPPER SQUAD -->
+      <section class="glass-card rounded-3xl p-5">
+        <div class="flex items-center justify-between">
+          <h3 class="text-sm font-bold">Hostel 4 Supper Squad</h3>
+          <span class="text-[9px] bg-blue-500/20 text-blue-400 px-2 py-1 rounded-full font-bold">
+            Active
+          </span>
+        </div>
+
+        <div class="flex items-center mt-4 space-x-2">
+          <div class="w-9 h-9 rounded-full bg-blue-500/30 border border-cardBorder flex items-center justify-center text-[10px] font-bold">JN</div>
+          <div class="w-9 h-9 rounded-full bg-purple-500/30 border border-cardBorder flex items-center justify-center text-[10px] font-bold">OM</div>
+          <div class="w-9 h-9 rounded-full bg-amber-500/30 border border-cardBorder flex items-center justify-center text-[10px] font-bold">NT</div>
+          <div class="w-9 h-9 rounded-full bg-brand-500/30 border border-cardBorder flex items-center justify-center text-[10px] font-bold">KS</div>
+
+          <span class="text-[10px] text-gray-400 ml-2">4 members</span>
+        </div>
+
+        <div class="mt-4 space-y-2 text-[11px]">
+          <div class="flex justify-between">
+            <span class="text-gray-400">Today’s meal total</span>
+            <span class="font-bold">UGX 12,000</span>
+          </div>
+
+          <div class="flex justify-between">
+            <span class="text-gray-400">Your share</span>
+            <span class="font-bold text-brand-400">UGX 3,000</span>
+          </div>
+
+          <div class="flex justify-between">
+            <span class="text-gray-400">Status</span>
+            <span class="font-bold text-amber-400">Pending</span>
+          </div>
+        </div>
+
+        <button onclick="openModal('squadExpenseModal')"
+          class="mt-4 w-full py-2.5 rounded-xl bg-gradient-to-r from-brand-600 to-emerald-500 text-white text-xs font-bold shadow-lg shadow-brand-600/30 transition">
+          Add Meal Expense
+        </button>
+      </section>
+
+      <!-- RECENT EXPENSES -->
+      <section class="glass-card rounded-3xl p-5">
+        <div class="flex items-center justify-between mb-4">
+          <h3 class="text-sm font-bold">Recent Expenses</h3>
+          <button class="text-[10px] text-brand-400 font-bold">View All</button>
+        </div>
+
+        <div class="space-y-3">
+          <div class="p-3 rounded-2xl bg-gray-900/60 border border-cardBorder flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+              <div class="w-9 h-9 rounded-xl bg-rose-500/20 text-rose-400 flex items-center justify-center">
+                <i class="fa-solid fa-utensils text-xs"></i>
+              </div>
+              <div>
+                <h4 class="text-[11px] font-bold">Supper</h4>
+                <span class="text-[9px] text-gray-400">Food • 7:30 PM</span>
+              </div>
+            </div>
+            <span class="text-[11px] font-extrabold text-rose-400">- UGX 3,000</span>
+          </div>
+
+          <div class="p-3 rounded-2xl bg-gray-900/60 border border-cardBorder flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+              <div class="w-9 h-9 rounded-xl bg-amber-500/20 text-amber-400 flex items-center justify-center">
+                <i class="fa-solid fa-bus text-xs"></i>
+              </div>
+              <div>
+                <h4 class="text-[11px] font-bold">Transport</h4>
+                <span class="text-[9px] text-gray-400">Transport • 2:10 PM</span>
+              </div>
+            </div>
+            <span class="text-[11px] font-extrabold text-rose-400">- UGX 1,000</span>
+          </div>
+
+          <div class="p-3 rounded-2xl bg-gray-900/60 border border-cardBorder flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+              <div class="w-9 h-9 rounded-xl bg-blue-500/20 text-blue-400 flex items-center justify-center">
+                <i class="fa-solid fa-wifi text-xs"></i>
+              </div>
+              <div>
+                <h4 class="text-[11px] font-bold">Data Bundle</h4>
+                <span class="text-[9px] text-gray-400">Data • 11:00 AM</span>
+              </div>
+            </div>
+            <span class="text-[11px] font-extrabold text-rose-400">- UGX 500</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- MOTIVATION -->
+      <section class="p-4 rounded-3xl bg-gradient-to-tr from-brand-900/50 to-emerald-900/20 border border-brand-500/30">
+        <h4 class="text-xs font-bold text-brand-400">🔥 Keep Going</h4>
+        <p class="text-[11px] text-gray-300 mt-1">
+          You have UGX 2,500 left today. Avoid extra snacks and stay within your Supper Squad budget.
+        </p>
+      </section>
+    </main>
+
+    <!-- BOTTOM NAV -->
+    <nav class="fixed bottom-0 left-0 right-0 z-50 glass-card border-t border-cardBorder px-6 py-3 flex justify-around max-w-md mx-auto">
+      <button class="flex flex-col items-center text-brand-500 text-[9px] font-bold">
+        <i class="fa-solid fa-house text-base"></i>
+        Home
+      </button>
+
+      <button class="flex flex-col items-center text-gray-400 text-[9px] font-bold">
+        <i class="fa-solid fa-receipt text-base"></i>
+        History
+      </button>
+
+      <button onclick="openModal('addExpenseModal')"
+        class="w-12 h-12 -mt-7 rounded-2xl bg-gradient-to-r from-brand-600 to-emerald-500 text-white flex items-center justify-center shadow-lg shadow-brand-600/40">
+        <i class="fa-solid fa-plus"></i>
+      </button>
+
+      <button class="flex flex-col items-center text-gray-400 text-[9px] font-bold">
+        <i class="fa-solid fa-utensils text-base"></i>
+        Squads
+      </button>
+
+      <button class="flex flex-col items-center text-gray-400 text-[9px] font-bold">
+        <i class="fa-solid fa-user text-base"></i>
+        Profile
+      </button>
+    </nav>
+
+    <!-- ADD EXPENSE MODAL -->
+    <div id="addExpenseModal" class="fixed inset-0 z-50 hidden items-end sm:items-center justify-center bg-black/70 backdrop-blur-sm p-4">
+      <div class="glass-card rounded-3xl p-6 w-full max-w-md border border-cardBorder shadow-2xl">
+        <div class="flex justify-between items-center mb-4">
+          <h3 class="font-bold text-base">Add Expense</h3>
+          <button onclick="closeModal('addExpenseModal')" class="text-gray-400 hover:text-white">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+        </div>
+
+        <div class="space-y-4">
+          <div>
+            <label class="text-[11px] text-gray-400 block mb-1">Amount</label>
+            <input type="number" placeholder="UGX 0"
+              class="w-full bg-gray-900/70 border border-cardBorder rounded-xl px-3 py-3 text-sm outline-none focus:border-brand-500" />
+          </div>
+
+          <div>
+            <label class="text-[11px] text-gray-400 block mb-2">Category</label>
+            <div class="grid grid-cols-4 gap-2">
+              <button class="py-2 rounded-xl bg-brand-500/20 text-brand-400 text-[10px] font-bold border border-brand-500/40">Food</button>
+              <button class="py-2 rounded-xl bg-gray-900/70 text-gray-300 text-[10px] font-bold border border-cardBorder">Transport</button>
+              <button class="py-2 rounded-xl bg-gray-900/70 text-gray-300 text-[10px] font-bold border border-cardBorder">Data</button>
+              <button class="py-2 rounded-xl bg-gray-900/70 text-gray-300 text-[10px] font-bold border border-cardBorder">Other</button>
+            </div>
+          </div>
+
+          <div>
+            <label class="text-[11px] text-gray-400 block mb-1">Note</label>
+            <input type="text" placeholder="e.g. Supper at campus mess"
+              class="w-full bg-gray-900/70 border border-cardBorder rounded-xl px-3 py-3 text-xs outline-none focus:border-brand-500" />
+          </div>
+
+          <button onclick="closeModal('addExpenseModal')"
+            class="w-full py-3 rounded-xl bg-gradient-to-r from-brand-600 to-emerald-500 text-white font-bold text-xs shadow-lg shadow-brand-600/30 transition">
+            Save Expense
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- CREATE SQUAD MODAL -->
+    <div id="createSquadModal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/70 backdrop-blur-sm p-4">
+      <div class="glass-card rounded-3xl p-6 w-full max-w-md border border-cardBorder shadow-2xl">
+        <div class="flex justify-between items-center mb-4">
+          <h3 class="font-bold text-base">Create Supper Squad</h3>
+          <button onclick="closeModal('createSquadModal')" class="text-gray-400 hover:text-white">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+        </div>
+
+        <div class="space-y-4">
+          <input type="text" placeholder="Squad name"
+            class="w-full bg-gray-900/70 border border-cardBorder rounded-xl px-3 py-3 text-xs outline-none focus:border-brand-500" />
+
+          <input type="text" placeholder="Invite friends by phone or student ID"
+            class="w-full bg-gray-900/70 border border-cardBorder rounded-xl px-3 py-3 text-xs outline-none focus:border-brand-500" />
+
+          <button onclick="closeModal('createSquadModal')"
+            class="w-full py-3 rounded-xl bg-gradient-to-r from-brand-600 to-emerald-500 text-white font-bold text-xs transition">
+            Create Squad
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- JOIN SQUAD MODAL -->
+    <div id="joinSquadModal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/70 backdrop-blur-sm p-4">
+      <div class="glass-card rounded-3xl p-6 w-full max-w-md border border-cardBorder shadow-2xl">
+        <div class="flex justify-between items-center mb-4">
+          <h3 class="font-bold text-base">Join Supper Squad</h3>
+          <button onclick="closeModal('joinSquadModal')" class="text-gray-400 hover:text-white">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+        </div>
+
+        <input type="text" placeholder="Enter squad code"
+          class="w-full bg-gray-900/70 border border-cardBorder rounded-xl px-3 py-3 text-xs outline-none focus:border-brand-500" />
+
+        <button onclick="closeModal('joinSquadModal')"
+          class="mt-4 w-full py-3 rounded-xl bg-gradient-to-r from-brand-600 to-emerald-500 text-white font-bold text-xs transition">
+          Join Squad
+        </button>
+      </div>
+    </div>
+
+    <!-- SQUAD EXPENSE MODAL -->
+    <div id="squadExpenseModal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/70 backdrop-blur-sm p-4">
+      <div class="glass-card rounded-3xl p-6 w-full max-w-md border border-cardBorder shadow-2xl">
+        <div class="flex justify-between items-center mb-4">
+          <h3 class="font-bold text-base">Add Squad Meal</h3>
+          <button onclick="closeModal('squadExpenseModal')" class="text-gray-400 hover:text-white">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+        </div>
+
+        <div class="space-y-4">
+          <input id="mealTotal" type="number" placeholder="Total meal cost"
+            class="w-full bg-gray-900/70 border border-cardBorder rounded-xl px-3 py-3 text-xs outline-none focus:border-brand-500" />
+
+          <input id="memberCount" type="number" value="4"
+            class="w-full bg-gray-900/70 border border-cardBorder rounded-xl px-3 py-3 text-xs outline-none focus:border-brand-500" />
+
+          <button onclick="calculateShare()"
+            class="w-full py-3 rounded-xl bg-gradient-to-r from-brand-600 to-emerald-500 text-white font-bold text-xs transition">
+            Calculate Share
+          </button>
+
+          <div id="shareResult" class="hidden p-4 rounded-2xl bg-brand-500/10 border border-brand-500/30 text-center">
+            <p class="text-[10px] text-gray-400">Each member pays</p>
+            <h4 id="shareAmount" class="text-lg font-extrabold text-brand-400 mt-1"></h4>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    function openModal(id) {
+      document.getElementById(id).classList.remove('hidden');
+      document.getElementById(id).classList.add('flex');
+    }
+
+    function closeModal(id) {
+      document.getElementById(id).classList.add('hidden');
+      document.getElementById(id).classList.remove('flex');
+    }
+
+    function calculateShare() {
+      const total = Number(document.getElementById('mealTotal').value);
+      const members = Number(document.getElementById('memberCount').value);
+
+      if (!total || !members) return;
+
+      const share = total / members;
+
+      document.getElementById('shareAmount').innerText =
+        'UGX ' + share.toLocaleString();
+
+      document.getElementById('shareResult').classList.remove('hidden');
+    }
+  </script>
+</body>
+</html>
